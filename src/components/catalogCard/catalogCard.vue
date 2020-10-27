@@ -24,7 +24,7 @@
             <div class="card__body-controls">
                 <div class="card__body-controls--count">
                     <button class="card__body-controls--count-less" v-on:click="onCountDecrease">-</button>
-                    <div class="card__body-controls--count-view">{{addData.count}}</div>
+                    <div class="card__body-controls--count-view">{{count}}</div>
                     <button class="card__body-controls--count-more" v-on:click="onCountIncrease">+</button>
                 </div>
                 <button class="card__body-controls--add" v-on:click="onAddToCart">Добавить</button>
@@ -49,22 +49,22 @@ import PropSelector from '@/components/propSelector/propSelector';
             PropSelector
         },
         data: function () {
-            let addData = {
-                count: 1,
-            };
+            let count = 1;
+            let addData = {};
             return {
+                count,
                 addData
             }
         },
         methods: {
             onCountDecrease: function () {
-                if (this.addData.count > 1) {
-                    this.addData.count--
+                if (this.count > 1) {
+                    this.count--
                 }
             },
 
             onCountIncrease: function () {
-                this.addData.count++
+                this.count++
             },
 
             onItemSelected: function (item, type)  {
@@ -77,6 +77,7 @@ import PropSelector from '@/components/propSelector/propSelector';
                 this.addData.img1 = this.product.img1;
                 this.addData.img2 = this.product.img2;
                 this.addData.text = this.product.text;
+                this.addData.count = this.count;
             },
 
             compareProductsInCart: function () {
@@ -101,7 +102,7 @@ import PropSelector from '@/components/propSelector/propSelector';
             updateSameProduct: function (sameProductIndex) {
                 const cartCards = this.$store.state.cart.cartItems;
                 const updatableProduct = cartCards[sameProductIndex];
-                updatableProduct.count += this.addData.count;
+                updatableProduct.count += this.count;
                 
                 this.$store.dispatch('addProductToCart', [
                     ...cartCards.slice(0, sameProductIndex),

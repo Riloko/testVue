@@ -20,6 +20,7 @@ const mutations = {
 
 const actions = {
     addProductToCart ({commit, dispatch}, product) {
+        console.log(product)
         commit('SET_CART_ITEMS', product);
         dispatch('countFullPrice');
     },

@@ -61,7 +61,7 @@ export default {
         },
         body: JSON.stringify(sendData)
       };
-
+      
       fetch(URL, options)
         .then(res => res.json())
         .then(body => console.log(body))

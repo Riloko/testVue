@@ -2,15 +2,18 @@
   <div class="catalog"> 
     <Header />
     <div class="catalog__filters">
-      
+      <button class="catalog__filters--btn" v-on:click="clearFilters">Очистить фильтры</button>
+      <button class="catalog__filters--btn" v-on:click="filterPriceUp">Фильтр по цене (По убыванию)</button>
+      <button class="catalog__filters--btn" v-on:click="filterPriceDown">Фильтр по цене (По возрастанию)</button>
+      <input class="catalog__filters--inpt" type="text" v-model="searchString" v-on:change="searchItems" placeholder="Что ищем?">
     </div>
     <div v-if="products[0] && !loading" class="catalog__body">
       <CatalogCard v-for="product in products" :key="product.id" :product="product"/>
-    </div>
-    <div class="catalog__body--loading" v-else-if="loading"></div>
+    </div>    
     <div v-else-if="!products[0] && !loading" class="catalog__body">
       Каталог пуст, обновите страницу
-    </div> 
+    </div>
+    <div class="catalog__body--loading" v-else-if="loading"></div>
   </div>
 </template>
 
@@ -24,6 +27,24 @@ export default {
   components: {
     CatalogCard,
     Header
+  },
+  data: function () {
+    let searchString = '';
+    return {searchString}
+  },
+  methods: {
+    filterPriceUp: function () {
+      this.$store.dispatch('getProductsPriceFilteredUp');      
+    },
+    filterPriceDown: function () {
+      this.$store.dispatch('getProductsPriceFilteredDown');      
+    },
+    clearFilters: function () {
+      this.$store.dispatch('getProducts');      
+    },
+    searchItems: function () {
+      this.searchString ? this.$store.dispatch('getProductsSearched', this.searchString) : this.$store.dispatch('getProducts');
+    }
   },
   computed: {
     products () {

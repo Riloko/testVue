@@ -3,8 +3,28 @@
     width: 100vw
     &__filters
         box-sizing: border-box
+        padding: 0 15px
         height: 5%
         width: 100%
+        display: flex
+        align-items: center
+        &--btn
+            padding: 10px 25px
+            background: #41b883
+            border-radius: 5px
+            border: 1px solid #34495e
+            color: #34495e
+            font-weight: bold
+            cursor: pointer
+            outline: none
+            margin-right: 15px
+        &--inpt
+            padding: 10px 25px
+            border: 0
+            outline: none
+            border-bottom: 1px solid #34495e
+            background: url('./loupe.svg') right  no-repeat
+            background-size: 15px
     &__body
         box-sizing: border-box
         height: 75%
@@ -16,6 +36,6 @@
         &--loading
             height: 75%
             width: 100%
-            background: url('./Cube-1s-200px.svg') center no-repeat;
+            background: url('./Cube-1s-200px.svg') center no-repeat
         
                     

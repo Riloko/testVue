@@ -15,7 +15,7 @@
                     {{product.price}} руб
                 </div>
                 <div v-if="product.sale" class="card__body-price-summ--new">
-                    {{Math.ceil(product.price * 0.85)}} руб
+                    {{Math.floor(product.price * 0.85)}} руб
                 </div>
                 <div v-if="!product.sale" class="card__body-price-summ">
                     {{product.price}} руб

@@ -24,6 +24,7 @@
         align-items: center
         justify-content: center
         &--link
+            position: relative
             font-weight: bold
             text-decoration: none
             color: #000000
@@ -34,5 +35,20 @@
                 text-decoration: underline
             &:last-child
                 margin: 0
+            &-cartcount
+                height: 20px
+                width: 20px
+                position: absolute
+                top: -15px
+                right: -15px
+                color: #ffff
+                border-radius: 50%
+                background: #41b883
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 13px
+                font-weight: normal
+                z-index: 0
         &--link.active
             color: #41b883

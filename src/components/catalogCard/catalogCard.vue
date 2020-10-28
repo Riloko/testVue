@@ -72,49 +72,23 @@ import PropSelector from '@/components/propSelector/propSelector';
             },
             
             createDataForCart: function () {
+                this.addData.sale = this.product.sale;
                 this.addData.id = this.product.id;
                 this.addData.price = this.product.sale ? Math.ceil(this.product.price * 0.85) : this.product.price;
                 this.addData.img1 = this.product.img1;
                 this.addData.img2 = this.product.img2;
                 this.addData.text = this.product.text;
                 this.addData.count = this.count;
+                return this.addData;
             },
 
-            compareProductsInCart: function () {
-                const cartCards = this.$store.state.cart.cartItems;
-                const sameProductIndex = cartCards.findIndex(({size, color, id}) => id === this.addData.id && size === this.addData.size && color === this.addData.color);
-                if (sameProductIndex != -1) {
-                    this.updateSameProduct(sameProductIndex);
-                } else {
-                    this.addToCart();
-                }
-
+            addToCart: function (newItem) {
+                this.$store.dispatch('addProductToCart', newItem);
             },
 
-            addToCart: function () {
-                const cartCards = this.$store.state.cart.cartItems;
-                this.$store.dispatch('addProductToCart', [
-                    ...cartCards,
-                    this.addData
-                ]);
-            },
-
-            updateSameProduct: function (sameProductIndex) {
-                const cartCards = this.$store.state.cart.cartItems;
-                const updatableProduct = cartCards[sameProductIndex];
-                updatableProduct.count += this.count;
-                
-                this.$store.dispatch('addProductToCart', [
-                    ...cartCards.slice(0, sameProductIndex),
-                    updatableProduct,
-                    ...cartCards.slice(sameProductIndex, cartCards.length - 1)
-                ]);
-
-                this.addData.count = 1;
-            },
 
             onAddToCart: function () {
-                this.createDataForCart();                
+                const newItem = this.createDataForCart();                
 
                 if (!this.addData.color) {
                     alert('Пожалуйста выберите цвет');
@@ -122,7 +96,7 @@ import PropSelector from '@/components/propSelector/propSelector';
                     if (!this.addData.size) {
                         alert('Пожалуйста выберите размер');
                     } else {
-                        this.compareProductsInCart();
+                        this.addToCart(newItem);
                     }
                 }
             }
